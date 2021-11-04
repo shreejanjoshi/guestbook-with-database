@@ -11,7 +11,7 @@ function storeData()
         $date = $_post['date'];
         $message = $_post['message'];
 
-        $query = "INSERT INTO users (username, title, date, message)";
+        $query = "INSERT INTO users (username, title, date, message) ";
         $query .= "VALUE ('$username', '$title', '$date', '$message')";
 
         $result = mysqli_query($connection, $query);
