@@ -1,4 +1,8 @@
 <?php
+include 'database.php';
+include 'function.php';
+
+storeData();
 
 ?>
 
@@ -17,7 +21,7 @@
 <body>
     <div class="container">
         <div class="col-xs-6">
-            <form action="index.php" method="post">
+            <form action="guestbook.php" method="post">
                 <h1>Guest Book</h1>
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -33,10 +37,13 @@
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea name="message" class="form-control message"style="width:100%;height:150px;"></textarea>
+                    <textarea name="message" class="form-control message" style="width:100%;height:150px;"></textarea>
                 </div>
                 <input class="btn btn-primary" type="submit" name="submit" value="Submit">
             </form>
+
+            <h1>Saved Data</h1>
+            <?php showData() ?>
         </div>
     </div>
 </body>
