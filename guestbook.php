@@ -1,8 +1,63 @@
-<?php 
-include 'database.php';
-include 'function.php';
+<?php
+// include 'database.php';
+// include 'function.php';
 
-storeData();
+// storeData();
+
+// $connection = mysqli_connect('localhost', 'root', '', 'guestbook');
+
+// if (!$connection) {
+//     die("Database connection failed");
+// }
+
+// if (isset($_post['submit'])) {
+
+//     $username = $_post['username'];
+//     $title = $_post['title'];
+//     $date = $_post['date'];
+//     $message = $_post['message'];
+
+//     $query = "INSERT INTO users (username, title, date, message) ";
+//     $query .= "VALUE ('$username', '$title', '$date', '$message')";
+
+//     $result = mysqli_query($connection, $query);
+
+//     if (!$result) {
+//         die("Query failed " . mysqli_error($connection));
+//     } else {
+//         echo ("Data is saved");
+//     }
+// }
+
+$connect = mysqli_connect('localhost', 'root', '', 'book');
+
+if (!$connect) {
+    die("Not connected");
+}
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $title = $_POST['title'];
+    $message = $_POST['message'];
+
+    $query = "INSERT INTO users (name, title, message)";
+    $query .= "VALUE ('$name', '$title', '$message')";
+
+    $result = mysqli_query($connect, $query);
+
+    if (!$result) {
+        die("Query failed " . mysqli_error($connect));
+    } else {
+        echo ("Data saved");
+    }
+}
+
+$show = "SELECT * FROM users";
+$showResult = mysqli_query($connect, $show);
+
+if (!$showResult) {
+    die("Failed to show " . mysqli_error($connect));
+}
 
 ?>
 
@@ -23,7 +78,7 @@ storeData();
         <div class="col-xs-6">
             <form action="guestbook.php" method="post">
                 <h1>Guest Book</h1>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" name="username" class="form-control">
                 </div>
@@ -39,11 +94,31 @@ storeData();
                     <label for="message">Message</label>
                     <textarea name="message" class="form-control message" style="width:100%;height:150px;"></textarea>
                 </div>
-                <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                <input class="btn btn-primary" type="submit" name="submit" value="Submit"> -->
+                <div class="form-group">
+                    <label for="name">name</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="title">title</label>
+                    <input type="text" name="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="message" class="form-control message" style="width:100%;height:150px;"></textarea>
+                </div>
+                <input class="btn btn-primary" type="submit" name="submit" value="ENTER">
             </form>
 
             <h1>Saved Data</h1>
-            <?php showData() ?>
+            <?php 
+            //showData() 
+            ?>
+            <?php
+            while ($data = mysqli_fetch_assoc($showResult)) {
+            ?>
+                <pre><?php print_r($data) ?></pre>
+            <?php } ?>
         </div>
     </div>
 </body>
